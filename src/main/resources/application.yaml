@@ -1,0 +1,21 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: disponibilidade-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ted
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: disponibilidade
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
