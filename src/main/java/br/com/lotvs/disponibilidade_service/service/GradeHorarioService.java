@@ -60,6 +60,16 @@ public class GradeHorarioService {
         return GradeHorarioResponse.de(repository.save(grade));
     }
 
+    @Transactional
+    public GradeHorarioResponse ativar(Long id) {
+        GradeHorarioEntity grade = obter(id);
+        if (grade.getStatus() == Status.ATIVO) {
+            throw new RegraDeNegocioException("O dia e horário já estão ativos", HttpStatus.CONFLICT);
+        }
+        grade.setStatus(Status.ATIVO);
+        return GradeHorarioResponse.de(repository.save(grade));
+    }
+
     private GradeHorarioEntity obter(Long id) {
         return repository.findById(id).orElseThrow(() -> new RegraDeNegocioException(
                 "Item da grade não encontrado com o id: " + id, HttpStatus.NOT_FOUND));

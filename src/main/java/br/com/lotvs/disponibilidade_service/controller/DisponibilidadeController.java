@@ -45,4 +45,9 @@ public class DisponibilidadeController {
     public DisponibilidadeResponse inativar(@PathVariable("id") Long id) {
         return service.inativar(id);
     }
+
+    @PatchMapping("/{id}/ativar")
+    public DisponibilidadeResponse ativar(@PathVariable("id") Long id) {
+        return service.inativar(id);
+    }
 }

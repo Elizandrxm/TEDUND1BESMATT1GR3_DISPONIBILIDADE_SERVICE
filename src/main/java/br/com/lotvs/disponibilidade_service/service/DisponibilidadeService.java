@@ -82,6 +82,16 @@ public class DisponibilidadeService {
         return DisponibilidadeResponse.de(disponibilidadeRepository.save(disponibilidade));
     }
 
+    @Transactional
+    public DisponibilidadeResponse ativar(Long id) {
+        DisponibilidadeEntity disponibilidade = obter(id);
+        if (disponibilidade.getStatus() == Status.ATIVO) {
+            throw new RegraDeNegocioException("A disponibilidade já está ativa", HttpStatus.CONFLICT);
+        }
+        disponibilidade.setStatus(Status.ATIVO);
+        return DisponibilidadeResponse.de(disponibilidadeRepository.save(disponibilidade));
+    }
+
     // Item 10.1.2 do cenário: só vale o que o colaborador deixou ativo na grade
     private void exigirNaGrade(DisponibilidadeRequest r) {
         if (!gradeRepository.existsByDiaSemanaAndHorarioAndStatus(r.diaSemana(), r.horario(), Status.ATIVO)) {

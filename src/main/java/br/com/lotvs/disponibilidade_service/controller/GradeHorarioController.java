@@ -39,4 +39,9 @@ public class GradeHorarioController {
     public GradeHorarioResponse inativar(@PathVariable("id") Long id) {
         return service.inativar(id);
     }
+
+    @PatchMapping("/{id}/ativar")
+    public GradeHorarioResponse ativar(@PathVariable("id") Long id) {
+        return service.inativar(id);
+    }
 }
